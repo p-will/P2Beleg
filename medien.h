@@ -8,6 +8,7 @@ Headerfile für die Übergeordnete Medienklasse
 #define MEDIEN_H
 
 #include <string>
+#include "path.h"
 
 class Medien 
 {
