@@ -23,9 +23,9 @@ class Person
     std::string getNr() const; //Kundennummer getter
     std::string getName() const; //Kundenname getter
     std::string getVorname() const; //Kundenvorname getter
-    int setNr(); // setter analog
-    int setName();
-    int setVorname();
+    int setNr(std::string); // setter analog
+    int setName(std::string);
+    int setVorname(std::string);
     void show() const; //zeigt alle Informationen der Person an
 };
 
