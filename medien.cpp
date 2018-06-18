@@ -27,16 +27,6 @@ int Medien::loeschen()
      
 }
 
-void Medien::show() const
-{
-    std::cout << "Künstler:  " << this->Kuenstler << std::endl;
-    std::cout << "Titel:     " << this->Titel << std::endl;
-    std::cout << "Jahr:      " << this->Jahr << std::endl;
-    std::cout << "ISBN:      " << this->ISBN << std::endl;
-    if(!this->Rueckgabe.empty())
-        std::cout << "Rueckgabe: " << this->Rueckgabe << std::endl;
-}
-
 inline std::string Medien::getKuenstler() const
 {
     return this->Kuenstler;

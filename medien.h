@@ -20,7 +20,6 @@ class Medien
     public:
     Medien(std::string,std::string,std::string,std::string); //Konstruktor; Rückgabedatum wird berechnet. Übergabe nicht nötig;
     ~Medien(); //Destruktor
-    void show() const; //zeigt alle Informationen des Mediums an
     std::string getKuenstler() const; //Künstler getter
     std::string getTitel() const; //Titel getter
     std::string getJahr() const; //Veröffentlichungsjahr getter
