@@ -18,7 +18,7 @@ class Medien
     std::string ISBN; //enthält einmalige ISBN des Mediums
     std::string Rueckgabe; //enthält fälliges Rückgabedatum
     public:
-    Medien(); //Konstruktor
+    Medien(std::string,std::string,std::string,std::string); //Konstruktor; Rückgabedatum wird berechnet. Übergabe nicht nötig;
     ~Medien(); //Destruktor
     void show() const; //zeigt alle Informationen des Mediums an
     std::string getKuenstler() const; //Künstler getter
