@@ -26,11 +26,11 @@ class Medien
     std::string getJahr() const; //Veröffentlichungsjahr getter
     std::string getISBN() const; //ISBN getter
     std::string getRueckgabe() const; //Rückgabedatum getter
-    int setKuenstler(); //Künstler setter
-    int setTitel(); //Titel setter
-    int setJahr(); //Veröffentlichungsjahr setter
-    int setISBN(); //ISBN setter
-    int setRueckgabe(); //Rückgabedatum setter
+    int setKuenstler(std::string); //Künstler setter
+    int setTitel(std::string); //Titel setter
+    int setJahr(std::string); //Veröffentlichungsjahr setter
+    int setISBN(std::string); //ISBN setter
+    int setRueckgabe(std::string); //Rückgabedatum setter
     int loeschen(); //löscht Medium inklusive in Ausleihe befindlicher Medien
 };
 
