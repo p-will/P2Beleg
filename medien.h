@@ -12,13 +12,14 @@ Headerfile für die Übergeordnete Medienklasse
 
 class Medien 
 {
-    private:
+    protected:
     std::string Kuenstler; //enthält den Namen des Autors/Interpreten
     std::string Titel; //enthält Namen des Buchs/Songs/Albums
     std::string Jahr; //enthält Erscheinungs-/Veröffentlichungsjahr
     std::string ISBN; //enthält einmalige ISBN des Mediums
     std::string Rueckgabe; //enthält fälliges Rückgabedatum
     public:
+    Medien(); //Defaultkonstruktor
     Medien(std::string,std::string,std::string,std::string); //Konstruktor; Rückgabedatum wird berechnet. Übergabe nicht nötig;
     ~Medien(); //Destruktor
     std::string getKuenstler() const; //Künstler getter

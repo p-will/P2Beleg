@@ -19,7 +19,7 @@ class CD:Medien
     public:
     CD(std::string,std::string,std::string,std::string);
     ~CD();
-    void show();
+    void show() const;
     int ausleihen();
 };
 

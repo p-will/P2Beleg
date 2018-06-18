@@ -8,6 +8,15 @@ Implementationsfile der Basisklasse Medien
 #include "medien.h"
 #include <iostream>
 
+inline Medien::Medien()
+{
+    this->Kuenstler="";
+    this->Titel="";
+    this->Jahr="";
+    this->ISBN="";
+    this->Rueckgabe="";
+}
+
 inline Medien::Medien(std::string K,std::string T,std::string J,std::string ID)
 {
     this->Kuenstler=K;

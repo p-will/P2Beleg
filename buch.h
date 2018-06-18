@@ -19,7 +19,7 @@ class Buch:Medien
     public:
         Buch(std::string,std::string,std::string,std::string,std::size_t);
         ~Buch();
-        void show();
+        void show() const;
         int ausleihen();
 };
 
