@@ -24,7 +24,7 @@ Medien::~Medien()
 
 int Medien::loeschen()
 {
-    
+     
 }
 
 void Medien::show() const
