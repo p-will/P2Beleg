@@ -7,7 +7,7 @@ Implementationsfile der Basisklasse Medien
 
 #include "medien.h"
 #include <iostream>
-
+/*
 inline Medien::Medien()
 {
     this->Kuenstler="";
@@ -23,7 +23,7 @@ inline Medien::Medien(QString K,QString T,QString J,QString ID)
     this->Jahr=J;
     this->ISBN=ID;
 }
-
+*/
 Medien::~Medien()
 {
     

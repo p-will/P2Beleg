@@ -18,8 +18,21 @@ class Medien
     QString ISBN; //enthält einmalige ISBN des Mediums
 //    QString Rueckgabe; //enthält fälliges Rückgabedatum
     public:
-    Medien(); //Defaultkonstruktor
-    Medien(QString,QString,QString,QString); //Konstruktor; Rückgabedatum wird berechnet. Übergabe nicht nötig;
+    Medien()
+    {
+        this->Kuenstler="";
+        this->Titel="";
+        this->Jahr="";
+        this->ISBN="";
+    } //Defaultkonstruktor
+    Medien(QString K,QString T,QString J,QString ID)
+    {
+        this->Kuenstler=K;
+        this->Titel=T;
+        this->Jahr=J;
+        this->ISBN=ID;
+    }
+     //Konstruktor; Rückgabedatum wird berechnet. Übergabe nicht nötig;
     ~Medien(); //Destruktor
     QString getKuenstler() const; //Künstler getter
     QString getTitel() const; //Titel getter

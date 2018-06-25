@@ -432,7 +432,11 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 main.o: ../Tabelle/main.cpp ../Tabelle/tabelle.h \
-		ui_tabelle.h
+		ui_tabelle.h \
+		../Tabelle/medien.h \
+		../Tabelle/person.h \
+		../Tabelle/buch.h \
+		../Tabelle/cd.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Tabelle/main.cpp
 
 tabelle.o: ../Tabelle/tabelle.cpp ../Tabelle/tabelle.h \

@@ -9,7 +9,10 @@ Implementationsfile der CD Klasse
 
 CD::CD(QString K,QString T,QString J,QString ID)
 {
-    Medien(K,J,T,ID);
+    this->Kuenstler=K;
+    this->Titel=T;
+    this->Jahr=J;
+    this->ISBN=ID;
 }
 
 CD::~CD()

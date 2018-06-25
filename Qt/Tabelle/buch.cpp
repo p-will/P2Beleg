@@ -9,7 +9,10 @@ Implementationsfile der abgeleiteten Buch Klasse
 Buch::Buch(QString K,QString T,QString J,QString ID,std::size_t Nr)
 {
     this->Auflage=Nr;
-    Medien(K,T,J,ID);
+    this->Kuenstler=K;
+    this->Titel=T;
+    this->Jahr=J;
+    this->ISBN=ID;
 }
 
 Buch::~Buch()
