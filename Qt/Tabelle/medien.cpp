@@ -16,7 +16,7 @@ inline Medien::Medien()
     this->ISBN="";
 }
 
-inline Medien::Medien(std::string K,std::string T,std::string J,std::string ID)
+inline Medien::Medien(QString K,QString T,QString J,QString ID)
 {
     this->Kuenstler=K;
     this->Titel=T;
@@ -29,48 +29,48 @@ Medien::~Medien()
     
 }
 
-inline std::string Medien::getKuenstler() const
+inline QString Medien::getKuenstler() const
 {
     return this->Kuenstler;
 }
 
-inline std::string Medien::getTitel() const
+inline QString Medien::getTitel() const
 {
     return this->Titel;
 }
 
-inline std::string Medien::getJahr() const
+inline QString Medien::getJahr() const
 {
     return this->Jahr;
 }
 
-inline std::string Medien::getISBN() const
+inline QString Medien::getISBN() const
 {
     return this->ISBN;
 }
 
-int Medien::setKuenstler(std::string Name)
+int Medien::setKuenstler(QString Name)
 {
     this->Kuenstler=Name;
     std::cout << "Änderung des Künstlernamens erfolgreich." << std::endl;
     return 0;
 }
 
-int Medien::setTitel(std::string Name)
+int Medien::setTitel(QString Name)
 {
     this->Titel=Name;
     std::cout << "Änderung des Titels erfolgreich." << std::endl;
     return 0;
 }
 
-int Medien::setJahr(std::string J)
+int Medien::setJahr(QString J)
 {
     this->Jahr=J;
     std::cout << "Änderung des Veröffentlichungsjahres erfolgreich." << std::endl;
     return 0;
 }
 
-int Medien::setISBN(std::string ID)
+int Medien::setISBN(QString ID)
 {
     this->ISBN=ID;
     std::cout << "Änderung der ISBN erfolgreich." << std::endl;

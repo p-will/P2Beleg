@@ -25,10 +25,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        tabelle.cpp
+        tabelle.cpp \
+    buch.cpp \
+    cd.cpp \
+    medien.cpp \
+    person.cpp
 
 HEADERS += \
-        tabelle.h
+        tabelle.h \
+    cd.h \
+    buch.h \
+    person.h \
+    medien.h
 
 FORMS += \
         tabelle.ui

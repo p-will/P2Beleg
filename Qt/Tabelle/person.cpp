@@ -7,7 +7,7 @@ Implementationsfile der Personenklasse zur Verwaltung der Kunden
 #include "person.h"
 #include <iostream>
 
-inline Person::Person(std::string KNr,std::string KName, std::string KVorname)
+inline Person::Person(QString KNr,QString KName, QString KVorname)
 {
     this->KuNr=KNr;
     this->KuName=KName;
@@ -19,44 +19,45 @@ Person::~Person()
 
 }
 
-int Person::loeschen()
+/*int Person::loeschen()
 {
 
 }
-
-inline std::string Person::getNr() const
+*/
+inline QString Person::getNr() const
 {
     return this->KuNr;
 }
 
-inline std::string Person::getName() const
+inline QString Person::getName() const
 {
     return this->KuName;
 }
 
-inline std::string Person::getVorname() const
+inline QString Person::getVorname() const
 {
     return this->KuVorname;
 }
 
-int Person::setNr(std::string Nr)
+int Person::setNr(QString Nr)
 {
     this->KuNr=Nr;
     std::cout << "Kundennummer erfolgreich geändert" <<  std::endl;
     return 0;
 }
 
-int Person::setName(std::string Name)
+int Person::setName(QString Name)
 {
     this->KuName=Name;
     std::cout << "Kundenname erfolgreich geändert" << std::endl;
     return 0;
 }
 
-int Person::setVorname(std::string Vorname)
+int Person::setVorname(QString Vorname)
 {
     this->KuVorname=Vorname;
     std::cout << "Kundenvorname erfolgreich geändert" << std::endl;
+    return 0;
 }
 
 /*void Person::show() const

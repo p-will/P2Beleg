@@ -51,9 +51,17 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Tabelle/main.cpp \
-		../Tabelle/tabelle.cpp moc_tabelle.cpp
+		../Tabelle/tabelle.cpp \
+		../Tabelle/buch.cpp \
+		../Tabelle/cd.cpp \
+		../Tabelle/medien.cpp \
+		../Tabelle/person.cpp moc_tabelle.cpp
 OBJECTS       = main.o \
 		tabelle.o \
+		buch.o \
+		cd.o \
+		medien.o \
+		person.o \
 		moc_tabelle.o
 DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/common/unix.conf \
@@ -122,6 +130,7 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib64/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib64/qt5/mkspecs/features/spec_post.prf \
+		../Tabelle/.qmake.stash \
 		/usr/lib64/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib64/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib64/qt5/mkspecs/features/default_pre.prf \
@@ -141,8 +150,16 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib64/qt5/mkspecs/features/yacc.prf \
 		/usr/lib64/qt5/mkspecs/features/lex.prf \
-		../Tabelle/Tabelle.pro ../Tabelle/tabelle.h ../Tabelle/main.cpp \
-		../Tabelle/tabelle.cpp
+		../Tabelle/Tabelle.pro ../Tabelle/tabelle.h \
+		../Tabelle/cd.h \
+		../Tabelle/buch.h \
+		../Tabelle/person.h \
+		../Tabelle/medien.h ../Tabelle/main.cpp \
+		../Tabelle/tabelle.cpp \
+		../Tabelle/buch.cpp \
+		../Tabelle/cd.cpp \
+		../Tabelle/medien.cpp \
+		../Tabelle/person.cpp
 QMAKE_TARGET  = Tabelle
 DESTDIR       = 
 TARGET        = Tabelle
@@ -221,6 +238,7 @@ Makefile: ../Tabelle/Tabelle.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /us
 		/usr/lib64/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib64/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib64/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib64/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib64/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib64/qt5/mkspecs/features/default_pre.prf \
@@ -312,6 +330,7 @@ Makefile: ../Tabelle/Tabelle.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /us
 /usr/lib64/qt5/mkspecs/features/qt_config.prf:
 /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib64/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib64/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib64/qt5/mkspecs/features/toolchain.prf:
 /usr/lib64/qt5/mkspecs/features/default_pre.prf:
@@ -350,8 +369,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Tabelle/tabelle.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Tabelle/main.cpp ../Tabelle/tabelle.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Tabelle/tabelle.h ../Tabelle/cd.h ../Tabelle/buch.h ../Tabelle/person.h ../Tabelle/medien.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Tabelle/main.cpp ../Tabelle/tabelle.cpp ../Tabelle/buch.cpp ../Tabelle/cd.cpp ../Tabelle/medien.cpp ../Tabelle/person.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Tabelle/tabelle.ui $(DISTDIR)/
 
 
@@ -419,6 +438,20 @@ main.o: ../Tabelle/main.cpp ../Tabelle/tabelle.h \
 tabelle.o: ../Tabelle/tabelle.cpp ../Tabelle/tabelle.h \
 		ui_tabelle.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tabelle.o ../Tabelle/tabelle.cpp
+
+buch.o: ../Tabelle/buch.cpp ../Tabelle/buch.h \
+		../Tabelle/medien.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o buch.o ../Tabelle/buch.cpp
+
+cd.o: ../Tabelle/cd.cpp ../Tabelle/cd.h \
+		../Tabelle/medien.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cd.o ../Tabelle/cd.cpp
+
+medien.o: ../Tabelle/medien.cpp ../Tabelle/medien.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o medien.o ../Tabelle/medien.cpp
+
+person.o: ../Tabelle/person.cpp ../Tabelle/person.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o person.o ../Tabelle/person.cpp
 
 moc_tabelle.o: moc_tabelle.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tabelle.o moc_tabelle.cpp

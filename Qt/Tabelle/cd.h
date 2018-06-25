@@ -7,7 +7,7 @@ Headerfile der abgeleiteten Klasse für CD Medien
 #ifndef CD_H
 #define CD_H
 
-#include <string>
+#include <QString>
 #include "medien.h"
 
 
@@ -16,9 +16,9 @@ class CD:Medien
     private:
 
     public:
-    CD(std::string,std::string,std::string,std::string);
+    CD(QString,QString,QString,QString);
     ~CD();
-    void show() const;
+    QString getInfo() const;
 };
 
 

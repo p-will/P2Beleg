@@ -8,7 +8,7 @@ Header File für abgeleitete Buch Klasse
 #define BUCH_H
 
 #include <iostream>
-#include <string>
+#include <QString>
 #include "medien.h"
 
 
@@ -17,9 +17,9 @@ class Buch:Medien
     private:
         std::size_t Auflage;
     public:
-        Buch(std::string,std::string,std::string,std::string,std::size_t);
+        Buch(QString,QString,QString,QString,std::size_t);
         ~Buch();
-        void show() const;
+        QString getInfo() const;
 };
 
 #endif

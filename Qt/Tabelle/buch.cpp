@@ -6,10 +6,10 @@ Implementationsfile der abgeleiteten Buch Klasse
 
 #include "buch.h"
 
-Buch::Buch(std::string K,std::string T,std::string J,std::string ID,std::size_t Nr)
+Buch::Buch(QString K,QString T,QString J,QString ID,std::size_t Nr)
 {
     this->Auflage=Nr;
-    Medien::Medien(K,T,J,ID);
+    Medien(K,T,J,ID);
 }
 
 Buch::~Buch()
@@ -17,11 +17,11 @@ Buch::~Buch()
 
 }
 
-void Buch::show() const
-{
+QString Buch::getInfo() const
+{/*
     std::cout<<"Künstler:       " << this->Kuenstler << std::endl;
     std::cout<<"Titel:          " << this->Titel << std::endl;
     std::cout<<"Jahr:           " << this->Jahr << std::endl;
     std::cout<<"ISBN:           " << this->ISBN << std::endl;
     std::cout<<"Auflage:        " << this->Auflage << std::endl;
-}
+*/}
