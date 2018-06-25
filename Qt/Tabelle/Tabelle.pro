@@ -29,14 +29,16 @@ SOURCES += \
     buch.cpp \
     cd.cpp \
     medien.cpp \
-    person.cpp
+    person.cpp \
+    datalist.cpp
 
 HEADERS += \
         tabelle.h \
     cd.h \
     buch.h \
     person.h \
-    medien.h
+    medien.h \
+    datalist.h
 
 FORMS += \
         tabelle.ui

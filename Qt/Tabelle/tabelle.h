@@ -24,6 +24,7 @@ private slots:
     void aenderung(QTableWidgetItem *);
     void loeschen();
     void insert();
+    void info(QTableWidgetItem *);
 
 private:
     Ui::tabelleWindow *ui;

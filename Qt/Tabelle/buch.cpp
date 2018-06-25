@@ -27,4 +27,13 @@ QString Buch::getInfo() const
     std::cout<<"Jahr:           " << this->Jahr << std::endl;
     std::cout<<"ISBN:           " << this->ISBN << std::endl;
     std::cout<<"Auflage:        " << this->Auflage << std::endl;
-*/}
+*/
+    QString ret{""};
+    ret.append(this->Kuenstler+"\n");
+    ret.append(this->Titel+"\n");
+    ret.append(this->Jahr+"\n");
+    ret.append(this->ISBN+"\n");
+    ret.append(this->Auflage+"\n");
+
+    return ret;
+}

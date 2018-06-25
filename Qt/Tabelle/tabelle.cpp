@@ -7,6 +7,7 @@
 #include <QDateTime>
 
 QString currVerzeichnis;
+const size_t ISBNPOS{4};
 
 tabelleWindow::tabelleWindow(QWidget *parent) :
     QDialog(parent)
@@ -17,6 +18,7 @@ tabelleWindow::tabelleWindow(QWidget *parent) :
     connect(tabelleWidget,SIGNAL(itemChanged(QTableWidgetItem *)),this,SLOT(aenderung(QTableWidgetItem *)));
     connect(insertButton,SIGNAL(clicked()),this,SLOT(insert()));
     connect(deleteButton,SIGNAL(clicked()),this,SLOT(loeschen()));
+    connect(tabelleWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(info(QTableWidgetItem *qwi)));
 }
 
 tabelleWindow::~tabelleWindow()
@@ -91,7 +93,6 @@ void tabelleWindow::neuladen(QString verzeichnis)
         {
             QTableWidgetItem *newItem = new QTableWidgetItem;
             newItem->setText(eintrag[row][column]);
-            newItem->setToolTip("Ja Moin Liebe Leute \n I Bims \n 1 ToolTip");
             if(row==0)
             {
                 tabelleWidget->setHorizontalHeaderItem(column,newItem);
@@ -243,3 +244,11 @@ void tabelleWindow::insert()
     tabelleWidget->setRowCount(tabelleWidget->rowCount()+1);
 }
 
+void tabelleWindow::info(QTableWidgetItem *qwi)
+{
+    if(currVerzeichnis.contains("ausleihe"))
+    {
+        if(qwi->column()==ISBNPOS)
+
+    }
+}
