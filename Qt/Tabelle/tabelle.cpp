@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <string>
 #include <QInputDialog>
+#include <QDateTime>
 
 QString currVerzeichnis;
 
@@ -12,11 +13,10 @@ tabelleWindow::tabelleWindow(QWidget *parent) :
 {
     setupUi(this);
     connect(saveButton,SIGNAL(clicked()),this,SLOT(speichern()));
-    connect(reloadButton,SIGNAL(clicked()),this,SLOT(neuladen()));
+    connect(reloadButton,SIGNAL(clicked()),this,SLOT(laden()));
     connect(tabelleWidget,SIGNAL(itemChanged(QTableWidgetItem *)),this,SLOT(aenderung(QTableWidgetItem *)));
     connect(insertButton,SIGNAL(clicked()),this,SLOT(insert()));
     connect(deleteButton,SIGNAL(clicked()),this,SLOT(loeschen()));
-    connect(ausleihButton,SIGNAL(clicked()),this,SLOT(ausleihen()));
 }
 
 tabelleWindow::~tabelleWindow()
@@ -24,7 +24,15 @@ tabelleWindow::~tabelleWindow()
     delete ui;
 }
 
-void tabelleWindow::neuladen()
+void tabelleWindow::laden()
+{
+    QString verzeichnis=QFileDialog::getOpenFileName(this,"Öffne die Datei");
+    insertButton->setEnabled(true);
+    this->neuladen(verzeichnis);
+
+}
+
+void tabelleWindow::neuladen(QString verzeichnis)
 {
     int s;
     int row,column;
@@ -33,8 +41,6 @@ void tabelleWindow::neuladen()
     QString line;
     QString eintrag[99][99];
 
-   // QString verzeichnis="/home/paulsuse/Dokumente/P2Beleg/ausleihe.txt";
-    QString verzeichnis=QFileDialog::getOpenFileName(this,"Öffne die Datei");
     currVerzeichnis = verzeichnis;
     QFile datei(verzeichnis);
     if(datei.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -98,6 +104,7 @@ void tabelleWindow::neuladen()
     }
     QApplication::restoreOverrideCursor();
     saveButton->setEnabled(false);
+
 }
 
 
@@ -132,13 +139,27 @@ void tabelleWindow::speichern()
 
     for(z=0;z<tabelleWidget->rowCount();z++)
     {
+        if(currVerzeichnis.contains("ausleihe"))
+        {
+            if(tabelleWidget->item(z,tabelleWidget->columnCount()-1)==0 || tabelleWidget->item(z,tabelleWidget->columnCount()-1)->text().isEmpty())
+            {
+                QDateTime datum=QDateTime::currentDateTime();
+                datum=datum.addDays(21);
+                tabelleWidget->setItem(z,tabelleWidget->columnCount()-1,new QTableWidgetItem(datum.toString("dd.MM.yyyy")));
+
+            }
+        }
         for(i=0;i<tabelleWidget->columnCount();i++)
         {
             if(tabelleWidget->item(z,i)!=0)
             {
                 inhalt=tabelleWidget->item(z,i)->text();
-
-                if(!inhalt.isEmpty())
+                if(inhalt.isEmpty())
+                {
+                    QMessageBox::warning(this,"Warnung","Keine leeren Zelleninhalte erlaubt!" );
+                    break;
+                }
+                else
                 {
                     if(i==tabelleWidget->columnCount()-1)
                     {
@@ -150,6 +171,12 @@ void tabelleWindow::speichern()
                     }
                 }
             }
+            else
+            {
+                    QMessageBox::warning(this,"Warnung","Keine leeren Zelleninhalte erlaubt!" );
+                    break;
+
+            }
         }
     out << endl;
     }
@@ -157,6 +184,11 @@ void tabelleWindow::speichern()
     datei.close();
 
     saveButton->setEnabled(false);
+    }
+    else
+    {
+        QMessageBox::warning(this,"Warnung","Datei konnte nicht zum speichern geöffnet werden. " +currVerzeichnis);
+        return;
     }
 
 }
@@ -202,15 +234,12 @@ void tabelleWindow::loeschen()
     datei.remove();
     tmp.rename(currVerzeichnis);
 
-    this->neuladen();
+    this->neuladen(currVerzeichnis);
+    saveButton->setEnabled(true);
 }
 
 void tabelleWindow::insert()
 {
-
+    tabelleWidget->setRowCount(tabelleWidget->rowCount()+1);
 }
 
-void tabelleWindow::ausleihen()
-{
-
-}

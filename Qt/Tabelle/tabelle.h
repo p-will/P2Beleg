@@ -18,15 +18,15 @@ public:
     ~tabelleWindow();
 
 private slots:
-    void neuladen();
+    void laden();
     void speichern();
     void aenderung(QTableWidgetItem *);
     void loeschen();
     void insert();
-    void ausleihen();
 
 private:
     Ui::tabelleWindow *ui;
+    void neuladen(QString);
 };
 
 #endif // TABELLE_H

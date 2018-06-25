@@ -47,7 +47,7 @@
   <widget class="QPushButton" name="reloadButton">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>70</x>
      <y>460</y>
      <width>141</width>
      <height>34</height>
@@ -63,7 +63,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>290</x>
      <y>460</y>
      <width>131</width>
      <height>34</height>
@@ -74,9 +74,12 @@
    </property>
   </widget>
   <widget class="QPushButton" name="insertButton">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>550</x>
      <y>460</y>
      <width>121</width>
      <height>34</height>
@@ -87,9 +90,12 @@
    </property>
   </widget>
   <widget class="QPushButton" name="deleteButton">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>570</x>
+     <x>740</x>
      <y>460</y>
      <width>111</width>
      <height>34</height>
@@ -97,19 +103,6 @@
    </property>
    <property name="text">
     <string>Löschen</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="ausleihButton">
-   <property name="geometry">
-    <rect>
-     <x>750</x>
-     <y>460</y>
-     <width>111</width>
-     <height>34</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Ausleihen</string>
    </property>
   </widget>
  </widget>

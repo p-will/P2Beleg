@@ -30,7 +30,6 @@ public:
     QPushButton *saveButton;
     QPushButton *insertButton;
     QPushButton *deleteButton;
-    QPushButton *ausleihButton;
 
     void setupUi(QDialog *tabelleWindow)
     {
@@ -49,20 +48,19 @@ public:
         tabelleWidget->setGeometry(QRect(15, 91, 871, 341));
         reloadButton = new QPushButton(tabelleWindow);
         reloadButton->setObjectName(QStringLiteral("reloadButton"));
-        reloadButton->setGeometry(QRect(60, 460, 141, 34));
+        reloadButton->setGeometry(QRect(70, 460, 141, 34));
         saveButton = new QPushButton(tabelleWindow);
         saveButton->setObjectName(QStringLiteral("saveButton"));
         saveButton->setEnabled(false);
-        saveButton->setGeometry(QRect(230, 460, 131, 34));
+        saveButton->setGeometry(QRect(290, 460, 131, 34));
         insertButton = new QPushButton(tabelleWindow);
         insertButton->setObjectName(QStringLiteral("insertButton"));
-        insertButton->setGeometry(QRect(400, 460, 121, 34));
+        insertButton->setEnabled(false);
+        insertButton->setGeometry(QRect(550, 460, 121, 34));
         deleteButton = new QPushButton(tabelleWindow);
         deleteButton->setObjectName(QStringLiteral("deleteButton"));
-        deleteButton->setGeometry(QRect(570, 460, 111, 34));
-        ausleihButton = new QPushButton(tabelleWindow);
-        ausleihButton->setObjectName(QStringLiteral("ausleihButton"));
-        ausleihButton->setGeometry(QRect(750, 460, 111, 34));
+        deleteButton->setEnabled(true);
+        deleteButton->setGeometry(QRect(740, 460, 111, 34));
 
         retranslateUi(tabelleWindow);
 
@@ -77,7 +75,6 @@ public:
         saveButton->setText(QApplication::translate("tabelleWindow", "Speichern", Q_NULLPTR));
         insertButton->setText(QApplication::translate("tabelleWindow", "Einf\303\274gen", Q_NULLPTR));
         deleteButton->setText(QApplication::translate("tabelleWindow", "L\303\266schen", Q_NULLPTR));
-        ausleihButton->setText(QApplication::translate("tabelleWindow", "Ausleihen", Q_NULLPTR));
     } // retranslateUi
 
 };

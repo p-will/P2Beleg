@@ -1,3 +1,4 @@
-"Kundennummer" "Name" "Vorname" "ISBN" "ISBN" "ISBN"
-"001" "Max" "Mustermann" "111345678"
-"002" "Heiko" "Mueller" "123456789" "111345678"
+"Kundennummer""Name""Vorname""ISBN""Rueckgabedatum"
+"001""Mustermann""Max""123456789""27.07.2018"
+"002""Mueller""Heiko""111345678""15.07.2018"
+"003""Chris""Stark""123456789""16.07.2018"
