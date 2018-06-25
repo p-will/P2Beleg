@@ -9,7 +9,6 @@ Headerfile der abgeleiteten Klasse für CD Medien
 
 #include <string>
 #include "medien.h"
-#include "path.h"
 
 
 class CD:Medien

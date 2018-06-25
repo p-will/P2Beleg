@@ -1,13 +1,3 @@
-Buch
-Johann Wolfgang von Goethe
-Faust
-1790
-123456789
-3
-%
-CD
-Alligatoah
-Triebwerke
-2013
-111345678
-#
+"Medienart" "Künstler" "Titel" "Veröffentlichungsjahr" "ISBN" "Auflage"
+"Buch" "Johann Wolfgang von Goethe" "Faust" "1790" "123456789" "3"
+"CD" "Alligatoah" "Triebwerke" "2013" "111345678"

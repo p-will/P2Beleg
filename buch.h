@@ -10,7 +10,7 @@ Header File für abgeleitete Buch Klasse
 #include <iostream>
 #include <string>
 #include "medien.h"
-#include "path.h"
+
 
 class Buch:Medien 
 {

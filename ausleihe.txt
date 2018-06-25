@@ -1,0 +1,3 @@
+"Kundennummer" "Name" "Vorname" "ISBN" "ISBN" "ISBN"
+"001" "Max" "Mustermann" "111345678"
+"002" "Heiko" "Mueller" "123456789" "111345678"

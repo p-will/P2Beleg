@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>tabelleWindow</class>
+ <widget class="QDialog" name="tabelleWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>910</width>
+    <height>526</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Tabelle</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>10</y>
+     <width>301</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Medienverwaltung</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tabelleWidget">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>91</y>
+     <width>871</width>
+     <height>341</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="reloadButton">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>460</y>
+     <width>141</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Laden</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="saveButton">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>460</y>
+     <width>131</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Speichern</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="insertButton">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>460</y>
+     <width>121</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Einfügen</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="deleteButton">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>460</y>
+     <width>111</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Löschen</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ausleihButton">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>460</y>
+     <width>111</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ausleihen</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
