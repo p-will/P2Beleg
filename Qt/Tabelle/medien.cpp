@@ -44,11 +44,11 @@ inline QString Medien::getJahr() const
     return this->Jahr;
 }
 
-inline QString Medien::getISBN() const
+/*inline QString Medien::getISBN() const
 {
     return this->ISBN;
 }
-
+*/
 int Medien::setKuenstler(QString Name)
 {
     this->Kuenstler=Name;
@@ -76,3 +76,15 @@ int Medien::setISBN(QString ID)
     std::cout << "Änderung der ISBN erfolgreich." << std::endl;
     return 0;
 }
+
+QString Medien::getInfo() const
+{
+QString ret{""};
+ret.append(this->Kuenstler+"\n");
+ret.append(this->Titel+"\n");
+ret.append(this->Jahr+"\n");
+ret.append(this->ISBN+"\n");
+
+return ret;
+}
+

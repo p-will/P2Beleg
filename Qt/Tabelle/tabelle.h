@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "ui_tabelle.h"
+#include "datalist.h"
 
 
 
@@ -29,6 +30,8 @@ private slots:
 private:
     Ui::tabelleWindow *ui;
     void neuladen(QString);
+    bool verify(datalist*);
+    bool emptycheck();
 };
 
 #endif // TABELLE_H

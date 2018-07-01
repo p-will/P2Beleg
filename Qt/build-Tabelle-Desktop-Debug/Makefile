@@ -55,13 +55,15 @@ SOURCES       = ../Tabelle/main.cpp \
 		../Tabelle/buch.cpp \
 		../Tabelle/cd.cpp \
 		../Tabelle/medien.cpp \
-		../Tabelle/person.cpp moc_tabelle.cpp
+		../Tabelle/person.cpp \
+		../Tabelle/datalist.cpp moc_tabelle.cpp
 OBJECTS       = main.o \
 		tabelle.o \
 		buch.o \
 		cd.o \
 		medien.o \
 		person.o \
+		datalist.o \
 		moc_tabelle.o
 DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/common/unix.conf \
@@ -154,12 +156,14 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		../Tabelle/cd.h \
 		../Tabelle/buch.h \
 		../Tabelle/person.h \
-		../Tabelle/medien.h ../Tabelle/main.cpp \
+		../Tabelle/medien.h \
+		../Tabelle/datalist.h ../Tabelle/main.cpp \
 		../Tabelle/tabelle.cpp \
 		../Tabelle/buch.cpp \
 		../Tabelle/cd.cpp \
 		../Tabelle/medien.cpp \
-		../Tabelle/person.cpp
+		../Tabelle/person.cpp \
+		../Tabelle/datalist.cpp
 QMAKE_TARGET  = Tabelle
 DESTDIR       = 
 TARGET        = Tabelle
@@ -369,8 +373,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Tabelle/tabelle.h ../Tabelle/cd.h ../Tabelle/buch.h ../Tabelle/person.h ../Tabelle/medien.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Tabelle/main.cpp ../Tabelle/tabelle.cpp ../Tabelle/buch.cpp ../Tabelle/cd.cpp ../Tabelle/medien.cpp ../Tabelle/person.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Tabelle/tabelle.h ../Tabelle/cd.h ../Tabelle/buch.h ../Tabelle/person.h ../Tabelle/medien.h ../Tabelle/datalist.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Tabelle/main.cpp ../Tabelle/tabelle.cpp ../Tabelle/buch.cpp ../Tabelle/cd.cpp ../Tabelle/medien.cpp ../Tabelle/person.cpp ../Tabelle/datalist.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Tabelle/tabelle.ui $(DISTDIR)/
 
 
@@ -456,6 +460,12 @@ medien.o: ../Tabelle/medien.cpp ../Tabelle/medien.h
 
 person.o: ../Tabelle/person.cpp ../Tabelle/person.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o person.o ../Tabelle/person.cpp
+
+datalist.o: ../Tabelle/datalist.cpp ../Tabelle/datalist.h \
+		../Tabelle/medien.h \
+		../Tabelle/cd.h \
+		../Tabelle/buch.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datalist.o ../Tabelle/datalist.cpp
 
 moc_tabelle.o: moc_tabelle.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tabelle.o moc_tabelle.cpp

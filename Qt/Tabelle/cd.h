@@ -11,7 +11,7 @@ Headerfile der abgeleiteten Klasse für CD Medien
 #include "medien.h"
 
 
-class CD:Medien
+class CD: public Medien
 {
     private:
 

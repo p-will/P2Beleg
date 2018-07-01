@@ -6,13 +6,13 @@ Implementationsfile der abgeleiteten Buch Klasse
 
 #include "buch.h"
 
-Buch::Buch(QString K,QString T,QString J,QString ID,std::size_t Nr)
+Buch::Buch(QString K,QString T,QString J,QString ID,QString Nr)
 {
-    this->Auflage=Nr;
     this->Kuenstler=K;
     this->Titel=T;
     this->Jahr=J;
     this->ISBN=ID;
+    this->Auflage=Nr;
 }
 
 Buch::~Buch()
@@ -37,3 +37,4 @@ QString Buch::getInfo() const
 
     return ret;
 }
+

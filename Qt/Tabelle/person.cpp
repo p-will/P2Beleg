@@ -7,13 +7,13 @@ Implementationsfile der Personenklasse zur Verwaltung der Kunden
 #include "person.h"
 #include <iostream>
 
-inline Person::Person(QString KNr,QString KName, QString KVorname)
+/*inline Person::Person(QString KNr,QString KName, QString KVorname)
 {
     this->KuNr=KNr;
     this->KuName=KName;
     this->KuVorname=KVorname;
 }
-
+*/
 Person::~Person()
 {
 

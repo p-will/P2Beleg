@@ -17,7 +17,12 @@ class Person
     QString KuName;    //Nachname des Kunden
     QString KuVorname; //Vorname des Kunden
     public:
-    Person(QString,QString,QString);  //Konstruktion ohne private Variablen Angabe wird nicht ermöglicht
+    Person(QString KNr,QString KName, QString KVorname)
+    {
+        this->KuNr=KNr;
+        this->KuName=KName;
+        this->KuVorname=KVorname;
+    }  //Konstruktion ohne private Variablen Angabe wird nicht ermöglicht
     ~Person(); //Destruktor der Klasse. Wird aufgerufen, wenn loeschen ausgeführt wird
   //  int loeschen(); //löscht die Person inklusive der Einträge in Ausleihe
     QString getNr() const; //Kundennummer getter

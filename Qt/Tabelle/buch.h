@@ -12,12 +12,12 @@ Header File für abgeleitete Buch Klasse
 #include "medien.h"
 
 
-class Buch:Medien 
+class Buch: public Medien
 {
     private:
-        std::size_t Auflage;
+        QString Auflage;
     public:
-        Buch(QString,QString,QString,QString,std::size_t);
+        Buch(QString,QString,QString,QString,QString);
         ~Buch();
         QString getInfo() const;
 };

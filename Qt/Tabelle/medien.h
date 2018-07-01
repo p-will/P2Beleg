@@ -37,7 +37,11 @@ class Medien
     QString getKuenstler() const; //Künstler getter
     QString getTitel() const; //Titel getter
     QString getJahr() const; //Veröffentlichungsjahr getter
-    QString getISBN() const; //ISBN getter
+    QString getISBN() const
+    {
+        return this->ISBN;
+    } //ISBN getter
+   virtual QString getInfo() const;
 //    QString getRueckgabe() const; //Rückgabedatum getter
     int setKuenstler(QString); //Künstler setter
     int setTitel(QString); //Titel setter
