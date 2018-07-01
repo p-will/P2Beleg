@@ -58,6 +58,29 @@ bool tabelleWindow::emptycheck()
     return true;
 }
 
+bool tabelleWindow::valid()
+{
+    for(int z=0;z<tabelleWidget->rowCount();z++)
+    {
+        if(tabelleWidget->item(z,tabelleWidget->rowCount()-2)->text().length()>9)
+        {
+            QMessageBox::warning(this,"Warnung","ISBN darf maximal 9 Zeichen enthalten!");
+            return false;
+        }
+        QString datum = tabelleWidget->item(z,tabelleWidget->columnCount()-1)->text();
+        if(currVerzeichnis.contains("ausleihe") && (datum.at(2)!='.' || datum.at(5)!='.'))
+        {
+            QMessageBox::warning(this,"Warnung","Datum bitte im Format dd.mm.yyyy angeben.");
+            return false;
+        }
+        if(!QDate::fromString(datum).isValid() || QDate::fromString(datum)< QDate::currentDate())
+        {
+            QMessageBox::warning(this,"Warnung","Ungültiges Datum.");
+            return false;
+        }
+    }
+    return true;
+}
 
 void tabelleWindow::laden()
 {
@@ -225,6 +248,11 @@ void tabelleWindow::speichern()
 
 
     if (!emptycheck())
+    {
+        return;
+    }
+
+    if(!valid())
     {
         return;
     }

@@ -32,6 +32,7 @@ private:
     void neuladen(QString);
     bool verify(datalist*);
     bool emptycheck();
+    bool valid();
 };
 
 #endif // TABELLE_H
