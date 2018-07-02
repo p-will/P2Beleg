@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QtGui>
 
 const size_t COUNTBUCHPROPERTIES{6};
 const size_t COUNTCDPROPERTIES{5};
@@ -11,8 +12,8 @@ datalist::datalist()
 {
     QString line;
     std::vector<QString> properties;
-    QString verzeichnis="/home/paulsuse/Dokumente/P2Beleg/Qt/Tabelle/media.txt";
-
+    QString verzeichnis=QDir::currentPath();
+    verzeichnis.append("/ausleihe.txt");
     QFile datei(verzeichnis);
     if(!datei.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -59,7 +60,8 @@ datalist::datalist()
     }
 
 
-    verzeichnis="/home/paulsuse/Dokumente/P2Beleg/Qt/Tabelle/person.txt";
+    verzeichnis=QDir::currentPath();
+    verzeichnis.append("/person.txt");
 
     QFile pdatei(verzeichnis);
     if(!pdatei.open(QIODevice::ReadOnly | QIODevice::Text))

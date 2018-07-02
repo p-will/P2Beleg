@@ -26,16 +26,19 @@ class Ui_tabelleWindow
 public:
     QLabel *label;
     QTableWidget *tabelleWidget;
-    QPushButton *reloadButton;
+    QPushButton *load_person;
     QPushButton *saveButton;
     QPushButton *insertButton;
     QPushButton *deleteButton;
+    QPushButton *load_media;
+    QPushButton *load_ausleihe;
+    QPushButton *helpButton;
 
     void setupUi(QDialog *tabelleWindow)
     {
         if (tabelleWindow->objectName().isEmpty())
             tabelleWindow->setObjectName(QStringLiteral("tabelleWindow"));
-        tabelleWindow->resize(910, 526);
+        tabelleWindow->resize(857, 526);
         label = new QLabel(tabelleWindow);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(300, 10, 301, 71));
@@ -45,22 +48,31 @@ public:
         label->setAlignment(Qt::AlignCenter);
         tabelleWidget = new QTableWidget(tabelleWindow);
         tabelleWidget->setObjectName(QStringLiteral("tabelleWidget"));
-        tabelleWidget->setGeometry(QRect(15, 91, 871, 341));
-        reloadButton = new QPushButton(tabelleWindow);
-        reloadButton->setObjectName(QStringLiteral("reloadButton"));
-        reloadButton->setGeometry(QRect(70, 460, 141, 34));
+        tabelleWidget->setGeometry(QRect(15, 91, 821, 341));
+        load_person = new QPushButton(tabelleWindow);
+        load_person->setObjectName(QStringLiteral("load_person"));
+        load_person->setGeometry(QRect(10, 460, 141, 34));
         saveButton = new QPushButton(tabelleWindow);
         saveButton->setObjectName(QStringLiteral("saveButton"));
         saveButton->setEnabled(false);
-        saveButton->setGeometry(QRect(290, 460, 131, 34));
+        saveButton->setGeometry(QRect(460, 460, 131, 34));
         insertButton = new QPushButton(tabelleWindow);
         insertButton->setObjectName(QStringLiteral("insertButton"));
         insertButton->setEnabled(false);
-        insertButton->setGeometry(QRect(550, 460, 121, 34));
+        insertButton->setGeometry(QRect(600, 460, 121, 34));
         deleteButton = new QPushButton(tabelleWindow);
         deleteButton->setObjectName(QStringLiteral("deleteButton"));
         deleteButton->setEnabled(true);
-        deleteButton->setGeometry(QRect(740, 460, 111, 34));
+        deleteButton->setGeometry(QRect(730, 460, 111, 34));
+        load_media = new QPushButton(tabelleWindow);
+        load_media->setObjectName(QStringLiteral("load_media"));
+        load_media->setGeometry(QRect(310, 460, 141, 34));
+        load_ausleihe = new QPushButton(tabelleWindow);
+        load_ausleihe->setObjectName(QStringLiteral("load_ausleihe"));
+        load_ausleihe->setGeometry(QRect(160, 460, 141, 34));
+        helpButton = new QPushButton(tabelleWindow);
+        helpButton->setObjectName(QStringLiteral("helpButton"));
+        helpButton->setGeometry(QRect(790, 0, 61, 34));
 
         retranslateUi(tabelleWindow);
 
@@ -71,10 +83,13 @@ public:
     {
         tabelleWindow->setWindowTitle(QApplication::translate("tabelleWindow", "Tabelle", Q_NULLPTR));
         label->setText(QApplication::translate("tabelleWindow", "Medienverwaltung", Q_NULLPTR));
-        reloadButton->setText(QApplication::translate("tabelleWindow", "Laden", Q_NULLPTR));
+        load_person->setText(QApplication::translate("tabelleWindow", "Personen", Q_NULLPTR));
         saveButton->setText(QApplication::translate("tabelleWindow", "Speichern", Q_NULLPTR));
         insertButton->setText(QApplication::translate("tabelleWindow", "Einf\303\274gen", Q_NULLPTR));
         deleteButton->setText(QApplication::translate("tabelleWindow", "L\303\266schen", Q_NULLPTR));
+        load_media->setText(QApplication::translate("tabelleWindow", "Medien", Q_NULLPTR));
+        load_ausleihe->setText(QApplication::translate("tabelleWindow", "Ausleihe", Q_NULLPTR));
+        helpButton->setText(QApplication::translate("tabelleWindow", "Hilfe", Q_NULLPTR));
     } // retranslateUi
 
 };

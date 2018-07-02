@@ -1,0 +1,13 @@
+  
+  Das folgende Programm ermöglicht die Verwaltung von Büchern und CDs für verschiedene Personen.
+
+- Über die Buttons "Person", "Medien" und "Ausleihe" können die jeweiligen gespeicherten Datenbestände geöffnet werden
+
+- Die referentielle Integrität wird durch die Kundennummer und die ISBN gesichert. Doppelte Werte sind deshalb in den Datenbständen zu "Person" und "Medien" nicht möglich. 
+  Gleichzeitig können keine unbekannten Kundennummern und ISBNs in der Ausleihe eingetragen werden.
+  
+- Das Rückgabedatum wird, wenn kein Wert angegeben wird, mit dem Datum in 3 Wochen aufgefüllt. Sollten eigene Werte eingetragen werden, so sollte dies entsprechend dem Format dd.mm.yyyy erfolgen.
+
+- Leere Werte sind, außer in der Auflage-Spalte in der Medientabelle(insofern das eingetragene Medium kein Buch ist) nicht erlaubt.
+
+

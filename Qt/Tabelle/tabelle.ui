@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>910</width>
+    <width>857</width>
     <height>526</height>
    </rect>
   </property>
@@ -39,22 +39,22 @@
     <rect>
      <x>15</x>
      <y>91</y>
-     <width>871</width>
+     <width>821</width>
      <height>341</height>
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="reloadButton">
+  <widget class="QPushButton" name="load_person">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>10</x>
      <y>460</y>
      <width>141</width>
      <height>34</height>
     </rect>
    </property>
    <property name="text">
-    <string>Laden</string>
+    <string>Personen</string>
    </property>
   </widget>
   <widget class="QPushButton" name="saveButton">
@@ -63,7 +63,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>460</x>
      <y>460</y>
      <width>131</width>
      <height>34</height>
@@ -79,7 +79,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>600</x>
      <y>460</y>
      <width>121</width>
      <height>34</height>
@@ -95,7 +95,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>740</x>
+     <x>730</x>
      <y>460</y>
      <width>111</width>
      <height>34</height>
@@ -103,6 +103,45 @@
    </property>
    <property name="text">
     <string>Löschen</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="load_media">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>460</y>
+     <width>141</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Medien</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="load_ausleihe">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>460</y>
+     <width>141</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ausleihe</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="helpButton">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>0</y>
+     <width>61</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Hilfe</string>
    </property>
   </widget>
  </widget>

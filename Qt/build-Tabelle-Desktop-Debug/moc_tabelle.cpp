@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_tabelleWindow_t {
-    QByteArrayData data[9];
-    char stringdata0[80];
+    QByteArrayData data[12];
+    char stringdata0[116];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,19 +32,23 @@ struct qt_meta_stringdata_tabelleWindow_t {
 static const qt_meta_stringdata_tabelleWindow_t qt_meta_stringdata_tabelleWindow = {
     {
 QT_MOC_LITERAL(0, 0, 13), // "tabelleWindow"
-QT_MOC_LITERAL(1, 14, 5), // "laden"
-QT_MOC_LITERAL(2, 20, 0), // ""
-QT_MOC_LITERAL(3, 21, 9), // "speichern"
-QT_MOC_LITERAL(4, 31, 9), // "aenderung"
-QT_MOC_LITERAL(5, 41, 17), // "QTableWidgetItem*"
-QT_MOC_LITERAL(6, 59, 8), // "loeschen"
-QT_MOC_LITERAL(7, 68, 6), // "insert"
-QT_MOC_LITERAL(8, 75, 4) // "info"
+QT_MOC_LITERAL(1, 14, 10), // "lade_media"
+QT_MOC_LITERAL(2, 25, 0), // ""
+QT_MOC_LITERAL(3, 26, 11), // "lade_person"
+QT_MOC_LITERAL(4, 38, 13), // "lade_ausleihe"
+QT_MOC_LITERAL(5, 52, 9), // "speichern"
+QT_MOC_LITERAL(6, 62, 9), // "aenderung"
+QT_MOC_LITERAL(7, 72, 17), // "QTableWidgetItem*"
+QT_MOC_LITERAL(8, 90, 8), // "loeschen"
+QT_MOC_LITERAL(9, 99, 6), // "insert"
+QT_MOC_LITERAL(10, 106, 4), // "info"
+QT_MOC_LITERAL(11, 111, 4) // "help"
 
     },
-    "tabelleWindow\0laden\0\0speichern\0aenderung\0"
+    "tabelleWindow\0lade_media\0\0lade_person\0"
+    "lade_ausleihe\0speichern\0aenderung\0"
     "QTableWidgetItem*\0loeschen\0insert\0"
-    "info"
+    "info\0help"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,7 +58,7 @@ static const uint qt_meta_data_tabelleWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -62,20 +66,26 @@ static const uint qt_meta_data_tabelleWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x08 /* Private */,
-       3,    0,   45,    2, 0x08 /* Private */,
-       4,    1,   46,    2, 0x08 /* Private */,
-       6,    0,   49,    2, 0x08 /* Private */,
-       7,    0,   50,    2, 0x08 /* Private */,
-       8,    1,   51,    2, 0x08 /* Private */,
+       1,    0,   59,    2, 0x08 /* Private */,
+       3,    0,   60,    2, 0x08 /* Private */,
+       4,    0,   61,    2, 0x08 /* Private */,
+       5,    0,   62,    2, 0x08 /* Private */,
+       6,    1,   63,    2, 0x08 /* Private */,
+       8,    0,   66,    2, 0x08 /* Private */,
+       9,    0,   67,    2, 0x08 /* Private */,
+      10,    1,   68,    2, 0x08 /* Private */,
+      11,    0,   71,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 5,    2,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 5,    2,
+    QMetaType::Void, 0x80000000 | 7,    2,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 7,    2,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -86,12 +96,15 @@ void tabelleWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         tabelleWindow *_t = static_cast<tabelleWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->laden(); break;
-        case 1: _t->speichern(); break;
-        case 2: _t->aenderung((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
-        case 3: _t->loeschen(); break;
-        case 4: _t->insert(); break;
-        case 5: _t->info((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 0: _t->lade_media(); break;
+        case 1: _t->lade_person(); break;
+        case 2: _t->lade_ausleihe(); break;
+        case 3: _t->speichern(); break;
+        case 4: _t->aenderung((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 5: _t->loeschen(); break;
+        case 6: _t->insert(); break;
+        case 7: _t->info((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 8: _t->help(); break;
         default: ;
         }
     }
@@ -124,13 +137,13 @@ int tabelleWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 9;
     }
     return _id;
 }

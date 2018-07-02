@@ -1,7 +1,6 @@
 #include "tabelle.h"
 #include <QtGui>
 #include <QMessageBox>
-#include <QFileDialog>
 #include <string>
 #include <QInputDialog>
 #include <QDateTime>
@@ -16,16 +15,49 @@ tabelleWindow::tabelleWindow(QWidget *parent) :
 {
     setupUi(this);
     connect(saveButton,SIGNAL(clicked()),this,SLOT(speichern()));
-    connect(reloadButton,SIGNAL(clicked()),this,SLOT(laden()));
+    connect(load_person,SIGNAL(clicked()),this,SLOT(lade_person()));
+    connect(load_media,SIGNAL(clicked()),this,SLOT(lade_media()));
+    connect(load_ausleihe,SIGNAL(clicked()),this,SLOT(lade_ausleihe()));
     connect(tabelleWidget,SIGNAL(itemChanged(QTableWidgetItem *)),this,SLOT(aenderung(QTableWidgetItem *)));
     connect(insertButton,SIGNAL(clicked()),this,SLOT(insert()));
     connect(deleteButton,SIGNAL(clicked()),this,SLOT(loeschen()));
     connect(tabelleWidget,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(info(QTableWidgetItem *)));
+    connect(helpButton,SIGNAL(clicked()),this,SLOT(help()));
 }
 
 tabelleWindow::~tabelleWindow()
 {
     delete ui;
+}
+
+void tabelleWindow::help()
+{
+    QString helpText{""};
+    QString verzeichnis = QDir::currentPath();
+    verzeichnis.append("/hilfe.txt");
+
+    QFile hilfe(verzeichnis);
+
+    if(!hilfe.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QMessageBox::warning(this,"Warnung","Hilfe konnte nicht augerufen werden.");
+        return;
+    }
+
+    QTextStream input_h(&hilfe);
+    QString line{""};
+
+    while(!input_h.atEnd())
+    {
+        line = input_h.readLine();
+        helpText.append(line);
+        helpText.append("\n");
+    }
+
+    hilfe.close();
+
+    QMessageBox::about(this,"Hilfe",helpText);
+
 }
 
 bool tabelleWindow::emptycheck()
@@ -62,6 +94,10 @@ bool tabelleWindow::valid()
 {
     for(int z=0;z<tabelleWidget->rowCount();z++)
     {
+        if(currVerzeichnis.contains("person") && tabelleWidget->item(z,0)->text().length()<= 3)
+        {
+            return true;
+        }
         if(tabelleWidget->item(z,tabelleWidget->rowCount()-2)->text().length()>9)
         {
             QMessageBox::warning(this,"Warnung","ISBN darf maximal 9 Zeichen enthalten!");
@@ -73,7 +109,7 @@ bool tabelleWindow::valid()
             QMessageBox::warning(this,"Warnung","Datum bitte im Format dd.mm.yyyy angeben.");
             return false;
         }
-        if(!QDate::fromString(datum).isValid() || QDate::fromString(datum)< QDate::currentDate())
+        if(currVerzeichnis.contains("ausleihe") && (!QDate::fromString(datum).isValid() || QDate::fromString(datum)< QDate::currentDate()))
         {
             QMessageBox::warning(this,"Warnung","Ungültiges Datum.");
             return false;
@@ -82,87 +118,162 @@ bool tabelleWindow::valid()
     return true;
 }
 
-void tabelleWindow::laden()
+void tabelleWindow::lade_person()
 {
-    QString verzeichnis=QFileDialog::getOpenFileName(this,"Öffne die Datei");
+    QString verzeichnis = QCoreApplication::applicationDirPath();
+    verzeichnis.append("/person.txt");
     insertButton->setEnabled(true);
     this->neuladen(verzeichnis);
+}
 
+void tabelleWindow::lade_media()
+{
+    QString verzeichnis = QCoreApplication::applicationDirPath();
+    verzeichnis.append(("/media.txt"));
+    insertButton->setEnabled(true);
+    this->neuladen(verzeichnis);
+}
+
+void tabelleWindow::lade_ausleihe()
+{
+    QString verzeichnis = QCoreApplication::applicationDirPath();
+    verzeichnis.append("/ausleihe.txt");
+    insertButton->setEnabled(true);
+    this->neuladen(verzeichnis);
 }
 
 void tabelleWindow::neuladen(QString verzeichnis)
 {
-    int s;
-    int row,column;
-    int zeilen {0},spalten {0};
+    int s {-1};
+    int row {0};
+    int column {0};
     int pos1,pos2,lastpos;
     QString line;
-    QString eintrag[99][99];
+    QString eintrag;
 
-    currVerzeichnis = verzeichnis;
     QFile datei(verzeichnis);
     if(datei.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-       QApplication::setOverrideCursor(Qt::WaitCursor);
+        QApplication::setOverrideCursor(Qt::WaitCursor);
+        tabelleWidget->clear();
+        tabelleWidget->setRowCount(0);
+        tabelleWidget->setColumnCount(0);
 
-       QTextStream in(&datei);
-       while(!in.atEnd())
-       {
-           line=in.readLine();
-           s=0;
-           pos1=0;
-           lastpos=0;
-           while(pos1!=-1)
-           {
-               pos1=line.indexOf("\"",lastpos);
-               lastpos=pos1+1;
-               pos2=line.indexOf("\"",lastpos);
-               lastpos=pos2+1;
-               if(pos1!=-1)
-               {
-                   eintrag[zeilen][s]=line.mid((pos1+1),(pos2-pos1-1));
-                   s++;
-               }
-           }
-
-       //maximale Spaltenanzahl ermitteln
-           if(s>spalten)
-           {spalten=s;}
-           zeilen++;
-       }
-
-
-    }
-    else
-    {
-        QMessageBox::warning(this,"Warnung" ,"Datei konnte nicht geöffnet werden: " + currVerzeichnis);
-        return;
-    }
-    datei.close();
-    tabelleWidget->clear();
-    tabelleWidget->setRowCount(zeilen-1);
-    tabelleWidget->setColumnCount(spalten);
-
-    for(row=0;row<zeilen;row++)
-    {
-        for(column=0;column<spalten;column++)
+        QTextStream in(&datei);
+        while(!in.atEnd())
         {
-            QTableWidgetItem *newItem = new QTableWidgetItem;
-            newItem->setText(eintrag[row][column]);
-            if(eintrag[row][column].isEmpty())
+            line = in.readLine();
+            tabelleWidget->insertRow(row);
+
+            column =0;
+            pos1 =0;
+            lastpos =0;
+            while(pos1!=-1)
             {
-                newItem->setFlags(newItem->flags() ^Qt::ItemIsEditable);
+                pos1=line.indexOf("\"",lastpos);
+                lastpos=pos1+1;
+                pos2=line.indexOf("\"",lastpos);
+                lastpos=pos2+1;
+                if(pos1!=-1)
+                {
+                    if(s<column)
+                    {
+                        tabelleWidget->insertColumn(column);
+                        s=column;
+                    }
+                    eintrag=line.mid((pos1+1),(pos2-pos1-1));
+                    QTableWidgetItem *newItem = new QTableWidgetItem;
+                    newItem->setText(eintrag);
+
+                    if(row==0)
+                    {
+                        tabelleWidget->setHorizontalHeaderItem(column,newItem);
+                    }
+                    else
+                    {
+                        tabelleWidget->setItem(row-1,column,newItem);
+                    }
+                    tabelleWidget->horizontalHeader()->setSectionResizeMode(column,QHeaderView::ResizeToContents);
+                    column++;
+                }
             }
-            if(row==0)
-            {
-                tabelleWidget->setHorizontalHeaderItem(column,newItem);
-            }
-            else
-            {
-                tabelleWidget->setItem(row-1,column,newItem);
-            }
+        row++;
         }
+        tabelleWidget->removeRow(row-1);
     }
+
+
+//    int s;
+//    int row,column;
+//    int zeilen {0},spalten {0};
+//    int pos1,pos2,lastpos;
+//    QString line;
+//    QString eintrag[99][99];
+
+//    currVerzeichnis = verzeichnis;
+//    QFile datei(verzeichnis);
+//    if(datei.open(QIODevice::ReadOnly | QIODevice::Text))
+//    {
+//       QApplication::setOverrideCursor(Qt::WaitCursor);
+
+//       QTextStream in(&datei);
+//       while(!in.atEnd())
+//       {
+//           line=in.readLine();
+//           s=0;
+//           pos1=0;
+//           lastpos=0;
+//           while(pos1!=-1)
+//           {
+//               pos1=line.indexOf("\"",lastpos);
+//               lastpos=pos1+1;
+//               pos2=line.indexOf("\"",lastpos);
+//               lastpos=pos2+1;
+//               if(pos1!=-1)
+//               {
+//                   eintrag[zeilen][s]=line.mid((pos1+1),(pos2-pos1-1));
+//                   s++;
+//               }
+//           }
+
+//       //maximale Spaltenanzahl ermitteln
+//           if(s>spalten)
+//           {spalten=s;}
+//           zeilen++;
+//       }
+
+
+//    }
+//    else
+//    {
+//        QMessageBox::warning(this,"Warnung" ,"Datei konnte nicht geöffnet werden: " + currVerzeichnis);
+//        return;
+//    }
+//    datei.close();
+//    tabelleWidget->clear();
+//    tabelleWidget->setRowCount(zeilen-1);
+//    tabelleWidget->setColumnCount(spalten);
+
+//    for(row=0;row<zeilen;row++)
+//    {
+//        for(column=0;column<spalten;column++)
+//        {
+//            QTableWidgetItem *newItem = new QTableWidgetItem;
+//            newItem->setText(eintrag[row][column]);
+//            if(eintrag[row][column].isEmpty())
+//            {
+//                newItem->setFlags(newItem->flags() ^Qt::ItemIsEditable);
+//            }
+//            if(row==0)
+//            {
+//                tabelleWidget->setHorizontalHeaderItem(column,newItem);
+//            }
+//            else
+//            {
+//                tabelleWidget->setItem(row-1,column,newItem);
+//            }
+//        }
+//    }
     media->leeren();
     media = new datalist();
     QApplication::restoreOverrideCursor();

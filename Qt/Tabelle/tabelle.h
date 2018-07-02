@@ -20,12 +20,15 @@ public:
     ~tabelleWindow();
 
 private slots:
-    void laden();
+    void lade_media();
+    void lade_person();
+    void lade_ausleihe();
     void speichern();
     void aenderung(QTableWidgetItem *);
     void loeschen();
     void insert();
     void info(QTableWidgetItem *);
+    void help();
 
 private:
     Ui::tabelleWindow *ui;
