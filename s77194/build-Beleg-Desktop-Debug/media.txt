@@ -1,0 +1,7 @@
+"Medienart""Künstler""Titel""Veröffentlichungsjahr""ISBN""Auflage"
+"CD""Alligatoah""Triebwerke""2013""111345678"""
+"CD""Genesis""Invisible Touch""1985""123456788"""
+"Buch""Johann Wolfgang von Goethe""Faust""1780""123456789""10"
+"Buch""Dan Brown ""Illuminati""2000""123412312""4"
+"CD""Pink Floyd""The Wall""1979""123123123"""
+"CD""Billy Talent""Billy Talent 2""2006""135412331"""
