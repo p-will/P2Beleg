@@ -8,6 +8,7 @@ d(F+G,X,DF+DG) :- d(F,X,DF),d(G,X,DG).
 d(F-G,X,DF-DG) :- d(F,X,DF), d(G,X,DG).
 d(F*G,X,DF*DG) :- d(F,X,DF), d(G,X,DG).
 d(F^N,X,N*F^M*DF) :- number(N),d(F,X,DF), M is N-1.
+d(sin(F),X,cos(F)*DF) :- d(F,X,DF).  
 
 
 s0(X+0,X).
@@ -16,14 +17,16 @@ s0(X+1,X).
 s0(1+X,X).
 s0(1*X,X).
 s0(X*1,X).
+s0(X^1,X).
+s0(_^0,1).
 s0(X+Y,Z) :- number(X),number(Y), Z is X+Y.
 s0(X-Y,Z) :- number(X),number(Y), Z is X-Y.
 s0(X*Y,Z) :- number(X),number(Y), Z is X*Y.
-s0(X^1,X).
-s0(_^0,1).
+s0(X,X).
 
 s(A+B,C) :- s(A,SA),s(B,SB),s0(SA+SB,C).
 s(A-B,C) :- s(A,SA),s(B,SB),s0(SA-SB,C).
 s(A*B,C) :- s(A,SA),s(B,SB),s0(SA*SB,C).
+s(A^1,A) :- s0(A^1,A).
 s(A,A).
 
