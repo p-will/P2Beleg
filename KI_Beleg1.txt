@@ -1,0 +1,45 @@
+diff(F,X,S) :- d(F,X,DF), s(DF,S).
+
+d(X,X,1).
+d(F,0,F).
+d(C,X,0) :- atomic(C), C\==X.
+d(-F,X,-DF) :- d(F,X,DF).
+d(C*F,X,C*DF) :- d(C,X,0), d(F,X,DF).
+d(F+G,X,DF+DG) :- d(F,X,DF),d(G,X,DG).
+d(F-G,X,DF-DG) :- d(F,X,DF), d(G,X,DG).
+d(F*G,X,DF*DG) :- d(F,X,DF), d(G,X,DG).
+d(F^N,X,N*F^M*DF) :- number(N),d(F,X,DF), M is N-1.
+d(sin(F),X,cos(F)*DF) :- d(F,X,DF).  
+d(cos(F),X,-sin(F)*DF):- d(F,X,DF).
+
+%Berechnet Taylorpolynom 2. Grades
+taylor(F,X,T) :- taylor0(F,X,T0), taylor1(F,X,T1), taylor2(F,X,T2), X=0, s(T0+T1+T2,T).
+
+%berechnet Glied 0. Grades
+taylor0(F,X,T0) :- diff(F,0,T0) . 
+
+%berechnet Glied 1. Grades
+taylor1(F,X,T1) :- diff(F,X,T1).
+
+%berechnet Glied 2. Grades
+taylor2(F,X,T2) :- diff(F,X,D), diff(D,X,D2), s(D2/2,T2).
+
+s0(X+0,X).
+s0(0+X,X).
+s0(X+1,X).
+s0(1+X,X).
+s0(1*X,X).
+s0(X*1,X).
+s0(X^1,X).
+s0(_^0,1).
+s0(X+Y,Z) :- number(X),number(Y), Z is X+Y.
+s0(X-Y,Z) :- number(X),number(Y), Z is X-Y.
+s0(X*Y,Z) :- number(X),number(Y), Z is X*Y.
+s0(X,X).
+
+s(A+B,C) :- s(A,SA),s(B,SB),s0(SA+SB,C).
+s(A-B,C) :- s(A,SA),s(B,SB),s0(SA-SB,C).
+s(A*B,C) :- s(A,SA),s(B,SB),s0(SA*SB,C).
+s(A/B,C) :- s(A,SA),s(B,SB),s0(SA/SB,C).
+s(A^1,A) :- s0(A^1,A).
+s(A,A).
