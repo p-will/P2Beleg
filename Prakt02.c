@@ -1,3 +1,4 @@
+ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,6 +7,8 @@
 #include <sys/sem.h>
 #include <semaphore.h>
 #include <sys/mman.h>
+#include <fcntl.h>   
+#include <sys/stat.h>  
 
 union semun {
 int              val;    /* Value for SETVAL */
@@ -22,7 +25,7 @@ void* create_shared_memory(size_t size) {
   // The buffer will be shared (meaning other processes can access it), but
   // anonymous (meaning third-party processes cannot obtain an address for it),
   // so only this process and its children will be able to use it:
-  int visibility = MAP_SHARED;
+  int visibility = MAP_ANONYMOUS | MAP_SHARED;
 
   // The remaining parameters to `mmap()` are not important for this use case,
   // but the manpage for `mmap` explains their purpose.
@@ -40,16 +43,15 @@ int main(int argc, char** argv)
 
     int child_pid[processCount];
 
-    sem_t mutex, w;
+    sem_t *mutex, *w;
 
-    int mutex_id = sem_init(&mutex,1,1);
-    int w_id = sem_init(&w,1,1);
-
+    w = sem_open("/sem_w", O_CREAT,0777,1);
+    mutex = sem_open("/sem_mutex",O_CREAT,0777,1); 
     int rc=0;
 
-    void* sharedMem = create_shared_memory(sizeof(rc));
+    void* sharedMem = create_shared_memory(sizeof(int));
 
-    memcpy(sharedMem,&rc,sizeof(rc));
+    memcpy(sharedMem,&rc,sizeof(int));
 
     FILE* fp = fopen("test.dat","w");
     if(fp==NULL)
@@ -63,7 +65,7 @@ int main(int argc, char** argv)
     for(int i=0; i < processCount; i++)
     {
         child_pid[i] = fork();
-        if(child_pid[i])
+        if(child_pid[i]==-1)
         {
             perror("Fork error");
             EXIT_FAILURE;
@@ -72,16 +74,20 @@ int main(int argc, char** argv)
         {
             if(i%2 == 0) //Gerade -> Leser-Prozess
             {
-               sem_wait(&mutex);
-               int child_rc;
-               memcpy(&child_rc,sharedMem,sizeof(rc)); 
-               child_rc++;
-               memcpy(sharedMem,&child_rc,sizeof(int));
-               if(child_rc==1)
+               sem_wait(mutex);
+               memcpy(&rc,sharedMem,sizeof(int)); 
+               rc++;
+               memcpy(sharedMem,&rc,sizeof(int));
+               if(rc==1)
                {
-                   sem_wait(&w);
+		   int val;
+		   sem_getvalue(w,&val);
+		   printf("Value :%d\n",val);
+                   sem_wait(w);
+		   puts("w blockieren");
                }
-               sem_post(&mutex);
+               sem_post(mutex);
+	       puts("lesen");
                FILE* read_fp = fopen("test.dat","r");
                int read_val = 0;
                if(fscanf(read_fp,"%d",&read_val)==-1)
@@ -91,17 +97,26 @@ int main(int argc, char** argv)
                }
                rewind(read_fp);
                fclose(read_fp);
-               sem_wait(&mutex);
-               memcpy(&child_rc,sharedMem,sizeof(rc)); 
-               child_rc--;
-               memcpy(sharedMem,&child_rc,sizeof(int));
-               if(child_rc==0)
-                  sem_post(&w);
-                sem_post(&mutex);
-            }
+               sem_wait(mutex);
+	       puts("rc --");
+               memcpy(&rc,sharedMem,sizeof(int)); 
+               rc--;
+               memcpy(sharedMem,&rc,sizeof(int));
+               if(rc==0)
+	       {
+	     	  puts("w öffnen");
+                  sem_post(w);
+		  int val;
+		  sem_getvalue(w,&val);
+		  printf("Value :%d\n",&val);
+	       }
+                sem_post(mutex);
+		exit(0);
+	    }
             else //ungerade -> Schreibprozess
             {
-               sem_wait(&w);
+               sem_wait(w);
+	       puts("schreiben");
                FILE* write_fp = fopen("test.dat","r+");
                int write_val = 0;
                if(fscanf(write_fp,"%d",&write_val)==-1)
@@ -109,15 +124,19 @@ int main(int argc, char** argv)
                    perror("Read error");
                    EXIT_FAILURE;
                }
-               write_val++;
+	       printf("%d\n",write_val);
+               write_val--;
+	       printf("%d\n",write_val);
                rewind(write_fp);
-               if(fprintf(write_fp,"%d",&write_val)==-1)
+               if(fprintf(write_fp,"%d",write_val)==-1)
                {
                    perror("Write error");
                    EXIT_FAILURE;
                }
                fclose(write_fp);
-               sem_post(&w);
+	       puts("w öffnen");
+               sem_post(w);
+	       exit(0);
             }
             
         }
@@ -133,14 +152,15 @@ int main(int argc, char** argv)
         int tmpid= wait(NULL);
         n--;
     }
-    if(sem_unlink("wait")==-1)
+    if(sem_unlink("/sem_w")==-1)
     {
         perror("Error on closing semaphore wait");
     }
-    if(sem_unlink("mutex")==-1)
+    if(sem_unlink("/sem_mutex")==-1)
     {
         perror("Error on closing semaphore mutex");
     }
+    free(sharedMem);
 
     return 0;
 }
