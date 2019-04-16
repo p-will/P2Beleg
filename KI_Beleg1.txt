@@ -1,7 +1,5 @@
 diff(F,X,S) :- d(F,X,DF), s(DF,S).
-
 d(X,X,1).
-d(F,0,F).
 d(C,X,0) :- atomic(C), C\==X.
 d(-F,X,-DF) :- d(F,X,DF).
 d(C*F,X,C*DF) :- d(C,X,0), d(F,X,DF).
@@ -13,35 +11,51 @@ d(sin(F),X,cos(F)*DF) :- d(F,X,DF).
 d(cos(F),X,(-1)*sin(F)*DF):- d(F,X,DF).
 
 %Berechnet Taylorpolynom 2. Grades
-taylor(F,X,T) :- d(F,X,T1), d(T1,X,T2),  S = F+T1*x + T2/2*x^2, s(S,T).
+%taylor(F,X,T) :- d(F,X,T1), d(T1,X,T2),  S = F+T1*x + T2/2*x^2, s(S,T).
+taylor(F,X,T) :- taylor0(F,X,T0) , taylor1(F,X,T1), taylor2(F,X,T2), t(T0+T1*x+T2/2*x^2,T) .
 
-taylor1(F,X,T) :- d(F,X,T1), s(T1*x,T).
-taylor2(F,X,T) :- d(F,X,T1), d(T1,X,T2), s(T2/2*(x)^2,T).
+taylor0(F,_,T) :- s(F,T).
+taylor1(F,X,T) :- d(F,X,T1) , s(T1,T). %s(T1*x,T).
+taylor2(F,X,T) :- d(F,X,T1), d(T1,X,T2) , s(T2,T). %s(T2/2*(x)^2,T).
 
 s0(X+0,X).
 s0(0+X,X).
 s0(X-0,X).
 s0(0*_,0).
+s0(0.0*_,0).
+s0(_*0.0,0).
 s0(_*0,0).
 s0(1*X,X).
 s0(1.0*X,X).  %ohne .0 unifiziert Aufruf nicht für . Zahlen
 s0(X*1.0,X).
 s0(X*1,X).
 s0(cos(x)+cos(x),2*cos(x)).
+s0(A^N,C) :- number(A), number(N), C is A**N.
 s0(X+Y,Z) :- number(X),number(Y), Z is X+Y.
 s0(X-Y,Z) :- number(X),number(Y), Z is X-Y.
 s0(X*Y,Z) :- number(X),number(Y), Z is X*Y.
 s0(X/Y,Z) :- number(X),number(Y), Z is X/Y.
-s0(X,0) :- atom(X).
 s0(X,X).
 
-s(A+B,C) :- s(A,SA),s(B,SB),s0(SA+SB,C).
-s(A-B,C) :- s(A,SA),s(B,SB),s0(SA-SB,C).
-s(A/B,C) :- s(A,SA),s(B,SB),s0(SA/SB,C).
-s(A*B,C) :- s(A,SA),s(B,SB),s0(SA*SB,C).
-s(_^0,1).
-s(A^1,A). 
 s(sin(_),E) :- E is sin(0).
 s(cos(_),E) :- E is cos(0).
-s(A,0) :- atom(A).
-s(A,A).
+s(A/B,C) :- s(A,SA),s(B,SB),s0(SA/SB,C).
+s(A*B,C) :- s(A,SA),s(B,SB),s0(SA*SB,C).
+s(A+B,C) :- s(A,SA),s(B,SB),s0(SA+SB,C).
+s(A-B,C) :- s(A,SA),s(B,SB),s0(SA-SB,C).
+s(A^N,C) :- s(A,SA),number(N),s0(SA^N,C).
+s(_^0,1).
+s(A^1,A). 
+s(A,A) :- not(atom(A)).
+s(A,0) :- atom(A) .
+
+t(sin(_),E) :- E is sin(0).
+t(cos(_),E) :- E is cos(0).
+t(A/B,C) :- t(A,SA),t(B,SB),s0(SA/SB,C).
+t(A*B,C) :- t(A,SA),t(B,SB),s0(SA*SB,C).
+t(A+B,C) :- t(A,SA),t(B,SB),s0(SA+SB,C).
+t(A-B,C) :- t(A,SA),t(B,SB),s0(SA-SB,C).
+t(A^N,C) :- t(A,SA),number(N),s0(SA^N,C).
+t(_^0,1).
+t(A^1,A). 
+t(A,A).
