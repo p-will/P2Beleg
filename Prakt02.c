@@ -106,9 +106,9 @@ int main(int argc, char** argv)
 	       {
 	     	  puts("w öffnen");
                   sem_post(w);
-		  int val;
-		  sem_getvalue(w,&val);
-		  printf("Value :%d\n",&val);
+		  //int val;
+		  //sem_getvalue(w,&val);
+		  //printf("Value :%d\n",val);
 	       }
                 sem_post(mutex);
 		exit(0);
@@ -124,9 +124,9 @@ int main(int argc, char** argv)
                    perror("Read error");
                    EXIT_FAILURE;
                }
-	       printf("%d\n",write_val);
+	       printf("Read :%d\n",write_val);
                write_val--;
-	       printf("%d\n",write_val);
+	       printf("Written: %d\n",write_val);
                rewind(write_fp);
                if(fprintf(write_fp,"%d",write_val)==-1)
                {
@@ -160,7 +160,7 @@ int main(int argc, char** argv)
     {
         perror("Error on closing semaphore mutex");
     }
-    free(sharedMem);
 
+    munmap(sharedMem,sizeof(int));
     return 0;
 }
